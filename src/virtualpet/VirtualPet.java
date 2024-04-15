@@ -15,8 +15,8 @@ public class VirtualPet {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-       
-        
+        int coins = 0;
+        int[] stats = {};
         System.out.println("""
                                     .--._.--.
                                    ( O     O )
@@ -32,6 +32,7 @@ public class VirtualPet {
                                   '-'|/   \\|`-`
                                       
                                       FROG""");
+        // Make login system with 3 attempts.
         int attempts = 0;
         while (attempts < 3) {
             System.out.print("Enter username: ");
@@ -52,30 +53,61 @@ public class VirtualPet {
             System.out.println("Too many failed login attempts. Exiting.");
             System.exit(0);
           }
-
         
-        System.out.println("""
+        // Start the first menu
+        boolean menu1 = true;
+        boolean menu2 = false;
+        while(menu1){
+            System.out.println("""
                            1. Start
                            2. Instructions
                            3. Exit""");
-        String choice  = scanner.next().toLowerCase();
-        switch (choice) {
+            String choice = scanner.next().toLowerCase();
+            switch (choice) {
                 case "1":
                 case "start":
-                    helper.petSelection();
-                    break; 
+                    stats = Helper.petSelection();
+                    menu2 = true;
+                    menu1 = false;
+                    break;
                 case "2":
                 case "instructions":
                     System.out.println("Instructions displayed here...");
-                    break; 
+                    break;
                 case "3":
-                case "exit": 
+                case "exit":
                     System.out.println("Exiting the program. Goodbye!");
-                    System.exit(0); 
+                    System.exit(0);
                 default:
                     System.out.println("Invalid choice");
-               }
-
+            }
+           }
+        
+        //start the second menu
+        while(menu2){
+            System.out.println("""
+                           1. Play/Interact
+                           2. Instructions
+                           3. Exit""");
+            String choice = scanner.next().toLowerCase();
+            switch (choice) {
+                case "1":
+                case "play/interact":
+                    coins = Helper.playGame();
+                    menu2 = false;
+                    break;
+                case "2":
+                case "instructions":
+                    System.out.println("Instructions displayed here...");
+                    break;
+                case "3":
+                case "exit":
+                    System.out.println("Exiting the program. Goodbye!");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice");
+            }
+           }
         }
                                         
     }
